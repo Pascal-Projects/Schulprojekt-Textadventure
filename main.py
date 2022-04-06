@@ -57,7 +57,7 @@ class Field:
         self.loot = []
 
     def print_state(self):
-        print("You look around and see ")
+        print("You look around and see:")
         for i in self.enemies:
             print(i.name)
 
@@ -124,11 +124,14 @@ def left(p, m):
 def backwards(p, m):
     m.backwards()
 
-def save():
+def save(p, m):
     pass # TODO: save function
 
-def load():
+def load(p, m):
     pass  # TODO: load function
+
+def look(p, m):
+    m.print_state()
 
 def quit_game(p, m):
     print("You commit suicide and leave this world.")
@@ -148,13 +151,15 @@ def fight(p, m):
             enemies.remove(enemies[0])
         for i in enemies:
             p.get_hit(i.ad)
-        print("You are wounded and have " + str(p.hp) + " hp left")
+            print(str(i.ad) + " hp verloren!")
+    print("You won but you are wounded and have " + str(p.hp) + " hp left")
 
 def rest(p, m):
     p.rest()
 
 Commands = {
     'help': print_help,
+    'look': look,
     'quit': quit_game,
     'pickup': pickup,
     'forward': forward,
@@ -168,14 +173,17 @@ Commands = {
 }
 
 if __name__ == '__main__':
-    name = input("Enter your name")
+    name = input("Enter your name: ")
     p = Player(name, 200, 100)
-    map = Map(5,5)
+    m = Map(5,5)
     print("(type help to list the commands available)\n")
     while True:
         command = input(">").lower().split(" ")
         if command[0] in Commands:
-            Commands[command[0]](p, map)
+            Commands[command[0]](p, m)
         else:
             print("You run around in circles and don't know what to do.")
-        map.print_state()
+
+
+# if len(command) > 1:
+#   Commands[command[0]](p, map, command[1:])
