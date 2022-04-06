@@ -173,7 +173,7 @@ if __name__ == '__main__':
     map = Map(5,5)
     print("(type help to list the commands available)\n")
     while True:
-        command = input(">").lower().split(" ") #pickup
+        command = input(">").lower().split(" ")
         if command[0] in Commands:
             Commands[command[0]](p, map)
         else:
