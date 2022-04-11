@@ -1,189 +1,178 @@
 import random
+import Charakter
+import Items
+# import json
+"""
 
-class Item:
-    def __init__(self, weigth, worth):
-        self.weight = weigth
-        self.worth = worth
+data = {
+    "president": {
+        "name": "Zaphod Beeblebrox",
+        "species": "Betelgeusian"
+    }
+}
 
-class Potion(Item):
-    def __init__(self, weight, worth):
-        Item.__init__(self, weight, worth)
-
-class HealthPotion(Potion):
-    def __init__(self, weight, worth, regenerated_health):
-        Potion.__init__(self, weight, worth)
-        self.regenerated_health = regenerated_health
-
-class Character:
-    def __init__(self, hp, ad, name):
-        self.hp = hp
-        self.ad = ad
-        self.name = name
-
-    def get_hit(self, ad):
-        self.hp = self.hp - ad
-        if self.hp <= 0:
-            self.die()
-
-    def is_dead(self):
-        return self.hp <= 0
-
-    def die(self):
-        print(self.name + " died")
-
-class Goblin(Character):
-    def __init__(self):
-        Character.__init__(self, 100, 10, "Goblin")
-
-class Ork(Character):
-    def __init__(self):
-        Character.__init__(self, 300, 30, "Ork")
-
-class Player(Character):
-    def __init__(self, name, hp, ad):
-        Character.__init__(self, hp, ad, name)
-        self.max_hp = hp
-
-    def die(self):
-        exit("Wasted. Try again.")
-
-    def rest(self):
-        self.hp = self.max_hp
+with open("data_file.json", "w") as write_file:
+    json.dump(data, write_file)
+"""
 
 
-class Field:
-    def __init__(self, enemies):
-        self.enemies = enemies
+
+class Feld:
+    def __init__(self, gegner):
+        self.gegner = gegner
         self.loot = []
 
-    def print_state(self):
-        print("You look around and see:")
-        for i in self.enemies:
-            print(i.name)
+    def print_umgebung(self):
+        if len(self.gegner) == 0:
+            print("Du siehst dich um, siehst aber nichts interessantes.")
+        else:
+            print("Du siehst dich um und siehst:")
+            for i in self.gegner:
+                print(i.name)
 
-    @staticmethod
-    def gen_random():
-        rand = random.randint(0,2)
-        if rand == 0:
-            return Field([])
-        if rand == 1:
-            return Field([Ork()])
-        if rand == 2:
-            return Field([Goblin(), Goblin(), Ork()])
+
+def generate_random():
+    rand = random.randint(0, 2)
+    if rand == 0:
+        return Feld([Charakter.Bokblin()])
+    if rand == 1:
+        return Feld([Charakter.Oktorok(), Charakter.Bokblin()])
+    if rand == 2:
+        return Feld([Charakter.Bokblin(), Charakter.Oktorok(), Charakter.Moblin()])
+
 
 class Map:
-    def __init__(self, width, height):
-        self.state = []
+    def __init__(self, breite, höhe):
+        self.karte = []
         self.x = 0
         self.y = 0
-        for i in range(width):
-            fields = []
-            for j in range(height):
-                fields.append(Field.gen_random())
-            self.state.append(fields)
+        for i in range(breite):
+            felder = []
+            for j in range(höhe):
+                felder.append(generate_random())
+            self.karte.append(felder)
 
-    def print_state(self):
-        self.state[self.x][self.y].print_state()
+    def print_karte(self):
+        self.karte[self.x][self.y].print_umgebung()
 
-    def get_enemies(self):
-        return self.state[self.x][self.y].enemies
+    def gegner(self):
+        return self.karte[self.x][self.y].gegner
 
-    def forward(self):
-        if self.x == len(self.state) - 1:
-            print("You see huge mountains, which you can't pass")
+    def vorwaerts(self):
+        if self.x == len(self.karte) - 1:
+            print("Du siehst riesige Berge, an denen du nicht vorbeikommst")
         else:
             self.x = self.x + 1
 
-    def backwards(self):
+    def rueckwaerts(self):
         if self.x == 0:
-            print("You see cliffs, but you can't jump safely")
+            print("Du siehst Klippen, aber du kannst nicht sicher auf sterben andere Seite springen")
         else:
             self.x = self.x - 1
 
-    def right(self):
-        if self.y == len(self.state[self.x]) - 1:
-            print("You see huge mountains, which you can't pass")
+    def rechts(self):
+        if self.y == len(self.karte[self.x]) - 1:
+            print("Du siehst riesige Berge, an denen du nicht vorbeikommst")
         else:
             self.y = self.y + 1
 
-    def left(self):
+    def links(self):
         if self.y == 0:
-            print("You see cliffs, but you can't jump safely")
+            print("Du siehst Klippen, aber du kannst nicht sicher auf sterben andere Seite springen")
         else:
             self.y = self.y - 1
 
-def forward(p, m):
-    m.forward()
 
-def right(p, m):
-    m.right()
+def vorwaerts(p, m):
+    m.vorwaerts()
+    m.print_karte()
 
-def left(p, m):
-    m.left()
 
-def backwards(p, m):
-    m.backwards()
+def rechts(p, m):
+    m.rechts()
+    m.print_karte()
+
+
+def links(p, m):
+    m.links()
+    m.print_karte()
+
+
+def rueckwaerts(p, m):
+    m.rueckwaerts()
+    m.print_karte()
+
 
 def save(p, m):
-    pass # TODO: save function
+    pass  # TODO: save function
+
 
 def load(p, m):
     pass  # TODO: load function
 
-def look(p, m):
-    m.print_state()
 
-def quit_game(p, m):
-    print("You commit suicide and leave this world.")
+def umschauen(p, m):
+    m.print_karte()
+
+
+def game_verlassen(p, m):
+    print("Du hast das Spiel verlassen")
     exit(0)
 
-def print_help(p, m):
-    print(Commands.keys())
+
+def print_hilfe(p, m):
+    print("Das sind alle Commands: \n")
+    for command in Commands:
+        print(command)
+
 
 def pickup(p, m):
     pass  # TODO: pickup function + looting system
 
-def fight(p, m):
-    enemies = m.get_enemies()
-    while len(enemies) > 0:
-        enemies[0].get_hit(p.ad)
-        if enemies[0].is_dead():
-            enemies.remove(enemies[0])
-        for i in enemies:
-            p.get_hit(i.ad)
-            print(str(i.ad) + " hp verloren!")
-    print("You won but you are wounded and have " + str(p.hp) + " hp left")
 
-def rest(p, m):
-    p.rest()
+def kaempfen(p, m):
+    gegner = m.gegner()
+    while len(gegner) > 0:
+        gegner[0].getroffen(p.ad)
+        if gegner[0].ist_tot():
+            gegner.remove(gegner[0])
+        for i in gegner:
+            p.getroffen(i.ad)
+            print(str(i.ad) + " hp verloren!")
+    if p.hp != p.max_hp:
+        print("Du hast gewonnen, bist aber verwundet und hast noch " + str(p.hp) + " hp übrig")
+    else:
+        print("Du hast gewonnen")
+
+
+def ausruhen(p, m):
+    p.ausruhen()
+
 
 Commands = {
-    'help': print_help,
-    'look': look,
-    'quit': quit_game,
+    'hilfe': print_hilfe,
+    'umschauen': umschauen,
+    'verlassen': game_verlassen,
     'pickup': pickup,
-    'forward': forward,
-    'right': right,
-    'left': left,
-    'backwards': backwards,
-    'fight': fight,
+    'vorwärts': vorwaerts,
+    'rechts': rechts,
+    'links': links,
+    'rückwärts': rueckwaerts,
+    'kämpfen': kaempfen,
     'save': save,
     'load': load,
-    'rest': rest
+    'ausruhen': ausruhen
 }
 
 if __name__ == '__main__':
-    name = input("Enter your name: ")
-    p = Player(name, 200, 100)
-    m = Map(5,5)
-    print("(type help to list the commands available)\n")
-    while True:
-        command = input(">").lower().split(" ")
-        if command[0] in Commands:
-            Commands[command[0]](p, m)
-        else:
-            print("You run around in circles and don't know what to do.")
-
-
-# if len(command) > 1:
-#   Commands[command[0]](p, map, command[1:])
+    name = input("Gib deinen Namen ein: ")
+    if name != "":
+        player = Charakter.Spieler(name, 200, 100)
+        map = Map(5, 5)
+        print("(Schreibe 'hilfe' um alle Commands anzuzeigen)\n")
+        while True:
+            command = input(">")
+            if command in Commands:
+                Commands[command](player, map)
+            else:
+                print("Du drehst dich im Kreis und weißt nicht was zu tun.")
