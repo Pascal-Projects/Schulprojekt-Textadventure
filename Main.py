@@ -64,8 +64,8 @@ def generate_random():
 class Map:
     def __init__(self, breite, hoehe):
         self.karte = []
-        self.x = 0
-        self.y = 0
+        self.x = 3
+        self.y = 3
         for _ in range(breite):
             felder = []
             for _ in range(hoehe):
