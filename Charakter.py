@@ -1,8 +1,13 @@
+import Items as Item
+import random
+
+
 class Charakter:
-    def __init__(self, hp, ad, name):
+    def __init__(self, hp, ad, drop, name):  # TODO: Drops
         self.hp = hp
         self.ad = ad
         self.name = name
+        self.drop = drop
 
     def getroffen(self, ad):
         self.hp = self.hp - ad
@@ -18,33 +23,54 @@ class Charakter:
 
 class Bokblin(Charakter):
     def __init__(self):
-        Charakter.__init__(self, 100, 10, "Bokblin")
-        self.ep = 10
+        rand = random.randint(1, 2)
+        if rand == 1:
+            self.drop = Item.Gesundheitstrank(30)
+        else:
+            self.drop = Item.Gesundheitstrank(20)
+        self.ep = 10 * rand
+        Charakter.__init__(self, 100, 10, self.drop, "Bokblin")
 
 
 class Moblin(Charakter):
     def __init__(self):
-        Charakter.__init__(self, 200, 20, "Moblin")
-        self.ep = 25
+        rand = random.randint(1, 2)
+        if rand == 1:
+            self.drop = Item.Gesundheitstrank(50)
+        else:
+            self.drop = Item.Gesundheitstrank(30)
+        self.ep = 25 * rand
+        Charakter.__init__(self, 200, 20, self.drop, "Moblin")
 
 
 class Oktorok(Charakter):
     def __init__(self):
-        Charakter.__init__(self, 50, 20, "Oktorok")
-        self.ep = 20
+        rand = random.randint(1, 2)
+        if rand == 1:
+            self.drop = Item.Erfahrungstrank(100)
+        else:
+            self.drop = Item.Gesundheitstrank(100)
+        self.ep = 20 * rand
+        Charakter.__init__(self, 50, 20, self.drop, "Oktorok")
 
 
-class Haendler(Charakter):
+class Leune(Charakter):
     def __init__(self):
-        self.name = "Terri"
-        Charakter.__init__(self, 1, 0, self.name)
+        rand = random.randint(1, 2)
+        if rand == 1:
+            self.drop = Item.Gesundheitstrank(200)
+        else:
+            self.drop = Item.Erfahrungstrank(1000)
+        self.ep = 100 * rand
+        Charakter.__init__(self, 500, 50, self.drop, "Leune")
 
 
 class Spieler(Charakter):
     def __init__(self, name, hp, ad):
-        Charakter.__init__(self, hp, ad, name)
         self.max_hp = hp
-        self.ep = 0
+        self.muenzen = 0
+        self.ep = 0  # TODO: Level
+        Charakter.__init__(self, hp, ad, None, name)
 
     def sterben(self):
         exit("Du bist gestorben")
