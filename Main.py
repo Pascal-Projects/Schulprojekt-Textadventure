@@ -27,7 +27,7 @@ class Haendler(Charakter.Charakter):
                 else:
                     self.artikel.append(Items.Gesundheitstrank(50))
 
-    def kaufen(self):  # TODO: kaufen
+    def kaufen(self):
         print("Was willst du kaufen?")
         counter = 1
         for item in self.artikel:
@@ -45,10 +45,14 @@ class Haendler(Charakter.Charakter):
         else:
             if int(item) > 0 and int(item) <= len(self.artikel):
                 if spieler.muenzen >= self.artikel[int(item)-1].wert:
-                    inventar.traenke.append(self.artikel[int(item)-1])
-                    inventar.gewicht += self.artikel[int(item)-1].gewicht
-                    spieler.muenzen -= self.artikel[int(item)-1].wert
-                    del self.artikel[int(item)-1]
+                    if inventar.gewicht < inventar.max_gewicht:
+                        inventar.traenke.append(self.artikel[int(item)-1])
+                        inventar.gewicht += self.artikel[int(item)-1].gewicht
+                        spieler.muenzen -= self.artikel[int(item)-1].wert
+                        del self.artikel[int(item)-1]
+                    else:
+                        print(
+                            "Dein Inventar ist voll. Benutze ein Item oder werfe es weg um ein neues in dein Inventar aufzunehmen.")
                 else:
                     print("Du besitzt nicht genug Münzen.")
             else:
@@ -440,6 +444,3 @@ if name != "":
             Commands[command](spieler, map)
         else:
             print("Du drehst dich im Kreis und weißt nicht was zu tun.")
-
-
-# TODO: Alles auf alle Items optimieren

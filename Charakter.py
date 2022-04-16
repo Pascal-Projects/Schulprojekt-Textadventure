@@ -3,7 +3,7 @@ import random
 
 
 class Charakter:
-    def __init__(self, hp, ad, drop, name):  # TODO: Drops
+    def __init__(self, hp, ad, drop, name):
         self.hp = hp
         self.ad = ad
         self.name = name

@@ -2,7 +2,7 @@ class Item:
     def __init__(self, name, gewicht, wert):
         self.name = name
         self.gewicht = gewicht
-        self.wert = wert  # TODO: Wert/Händler
+        self.wert = wert
 
 
 class Schwert(Item):
@@ -19,7 +19,8 @@ class Trank(Item):
 class Gesundheitstrank(Trank):
     def __init__(self, wiederhergestellte_gesundheit):
         self.wiederhergestellte_gesundheit = wiederhergestellte_gesundheit
-        Trank.__init__(self, "Gesundheitstrank", self.wiederhergestellte_gesundheit * 2)
+        Trank.__init__(self, "Gesundheitstrank",
+                       self.wiederhergestellte_gesundheit * 2)
 
 
 class Erfahrungstrank(Trank):
