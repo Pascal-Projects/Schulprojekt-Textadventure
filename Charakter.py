@@ -23,9 +23,11 @@ class Charakter:
 
 class Bokblin(Charakter):
     def __init__(self):
-        rand = random.randint(1, 2)
+        rand = random.randint(1, 3)
         if rand == 1:
             self.drop = Item.Gesundheitstrank(30)
+        elif rand == 2:
+            self.drop = Item.Schwert("Bokblin-Knochen", 1, 105)
         else:
             self.drop = Item.Gesundheitstrank(20)
         self.ep = 10 * rand
@@ -34,20 +36,26 @@ class Bokblin(Charakter):
 
 class Moblin(Charakter):
     def __init__(self):
-        rand = random.randint(1, 2)
+        rand = random.randint(1, 3)
         if rand == 1:
             self.drop = Item.Gesundheitstrank(50)
-        else:
+        elif rand == 2:
             self.drop = Item.Gesundheitstrank(30)
+        else:
+            self.drop = Item.Schwert("Antikes Schwert", 2, 140)
         self.ep = 25 * rand
         Charakter.__init__(self, 200, 20, self.drop, "Moblin")
 
 
 class Oktorok(Charakter):
     def __init__(self):
-        rand = random.randint(1, 2)
+        rand = random.randint(1, 4)
         if rand == 1:
             self.drop = Item.Erfahrungstrank(100)
+        elif rand == 2:
+            self.drop = Item.Schwert("Ritterschwert", 2, 126)
+        elif rand == 3:
+            self.drop = Item.Schwert("Soldatenschwert", 2, 114)
         else:
             self.drop = Item.Gesundheitstrank(100)
         self.ep = 20 * rand
@@ -56,20 +64,34 @@ class Oktorok(Charakter):
 
 class Leune(Charakter):
     def __init__(self):
+        self.drop = []
         rand = random.randint(1, 2)
         if rand == 1:
             self.drop = Item.Gesundheitstrank(200)
+        elif rand == 2:
+            self.drop = Item.Schwert("Leunenschwert", 3, 124)
         else:
             self.drop = Item.Erfahrungstrank(1000)
         self.ep = 100 * rand
         Charakter.__init__(self, 500, 50, self.drop, "Leune")
 
 
+class Krog(Charakter):
+    def __init__(self):
+        Charakter.__init__(self, 1, None, None, "Krog")
+
+
+class Maronus(Charakter):
+    def __init__(self):
+        Charakter.__init__(self, 1, None, None, "Maronus")
+
+
 class Spieler(Charakter):
-    def __init__(self, name, hp, ad):
+    def __init__(self, name, hp, ad, ap):
         self.max_hp = hp
         self.muenzen = 0
-        self.ep = 0  # TODO: Level
+        self.ep = 0
+        self.ap = ap
         Charakter.__init__(self, hp, ad, None, name)
 
     def sterben(self):
@@ -77,3 +99,6 @@ class Spieler(Charakter):
 
     def ausruhen(self):
         self.hp = self.max_hp
+
+    def levelup(self):
+        pass  # Todo: Level

@@ -5,10 +5,11 @@ class Item:
         self.wert = wert
 
 
-class Schwert(Item):
-    def __init__(self, gewicht, wert, schaden):
+class Schwert(Item):  # Fixme: Schwert nach Verlust/Verkauf
+    def __init__(self, name, gewicht, schaden):
         self.schaden = schaden
-        Item.__init__(self, "Schwert", gewicht, wert)
+        self.wert = schaden * 3.5
+        Item.__init__(self, name, gewicht, self.wert)
 
 
 class Trank(Item):
@@ -20,10 +21,10 @@ class Gesundheitstrank(Trank):
     def __init__(self, wiederhergestellte_gesundheit):
         self.wiederhergestellte_gesundheit = wiederhergestellte_gesundheit
         Trank.__init__(self, "Gesundheitstrank",
-                       self.wiederhergestellte_gesundheit * 2)
+                       self.wiederhergestellte_gesundheit * 4)
 
 
 class Erfahrungstrank(Trank):
     def __init__(self, erfahrungspunkte):
         self.erfahrungspunkte = erfahrungspunkte
-        Trank.__init__(self, "Erfahrungstrank", self.erfahrungspunkte * 3)
+        Trank.__init__(self, "Erfahrungstrank", self.erfahrungspunkte * 2)
