@@ -34,10 +34,10 @@ class Haendler(Charakter.Charakter):
             for item in self.artikel:
                 if item.name == "Erfahrungstrank":
                     print(str(counter) + ". " + str(item.name) +
-                        " (Erfahrungspunkte: " + str(item.erfahrungspunkte) + ", Wert: " + str(item.wert) + " Münzen )")
+                          " (Erfahrungspunkte: " + str(item.erfahrungspunkte) + ", Wert: " + str(item.wert) + " Münzen )")
                 elif item.name == "Gesundheitstrank":
                     print(str(counter) + ". " + str(item.name) +
-                        " (Wiederherstellende Gesundheit: " + str(item.wiederhergestellte_gesundheit) + ", Wert: " + str(item.wert) + " Münzen )")
+                          " (Wiederherstellende Gesundheit: " + str(item.wiederhergestellte_gesundheit) + ", Wert: " + str(item.wert) + " Münzen )")
                 counter += 1
             item = input(
                 "Gib die Zahl des Items an, welches du kaufen willst: \n>>>")
@@ -48,7 +48,8 @@ class Haendler(Charakter.Charakter):
                     if spieler.muenzen >= self.artikel[int(item)-1].wert:
                         if inventar.gewicht < inventar.max_gewicht:
                             inventar.traenke.append(self.artikel[int(item)-1])
-                            inventar.gewicht += self.artikel[int(item)-1].gewicht
+                            inventar.gewicht += self.artikel[int(
+                                item)-1].gewicht
                             spieler.muenzen -= self.artikel[int(item)-1].wert
                             del self.artikel[int(item)-1]
                         else:
@@ -576,7 +577,13 @@ def krog(p, m):
 
 
 def maronus(p, m):
-    pass  # Todo: Maronus
+    if m.karte[m.x][m.y].maronus != None:
+        if inventar.krogsamen > 0:
+            print("Du kannst mit Krogsamen dein Inventar vergrößern.")
+        else:
+            print("Du besitzt keine Krogsamen. Finde Krogs, um diese zu erhalten und bei Maronus einzulösen. \n")
+    else:
+        print("Maronus bbefindet sich nicht hier.")
 
 
 """ def ausruhen(p, m):
