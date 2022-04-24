@@ -580,8 +580,13 @@ def maronus(p, m):
     if m.karte[m.x][m.y].maronus != None:
         if inventar.krogsamen > 0:
             print("Du kannst mit Krogsamen dein Inventar vergrößern.")
+            if vergrößern <= 2:
+                wahl = input("Willst du das maximal-Gewicht deines Inventares erhöhen? \n>>>")
+                if wahl == "ja":
+                    pass # Todo: Inventarvergrößerung
         else:
-            print("Du besitzt keine Krogsamen. Finde Krogs, um diese zu erhalten und bei Maronus einzulösen. \n")
+            print(
+                "Du besitzt keine Krogsamen. Finde Krogs, um diese zu erhalten und bei Maronus einzulösen. \n")
     else:
         print("Maronus bbefindet sich nicht hier.")
 
@@ -621,6 +626,8 @@ Commands = {
     "verkaufen": verkaufen,
 }
 
+schwierigkeitsgrad = 1
+
 name = input("Gib deinen Namen ein: ")  # Todo: Schwierigkeitsgrad
 if name != "":
     spieler = Charakter.Spieler(name, 200, 100, 1)
@@ -629,6 +636,7 @@ if name != "":
     map.karte[len(map.karte[map.x])-1][len(map.karte[map.y]) -
                                        1].loot.append(Items.Schwert("Master Sword", 2, 160))
     inventar = Inventar.Inventar(10)
+    vergrößern = 0  # für Maronus
     print("(Schreibe 'hilfe' um alle Commands anzuzeigen)\n")
     map.print_karte()
     while True:
