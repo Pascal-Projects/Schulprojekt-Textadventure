@@ -76,6 +76,13 @@ class Leune(Charakter):
         Charakter.__init__(self, 500, 50, self.drop, "Leune")
 
 
+class Waechter(Charakter):
+    def __init__(self):
+        self.drop = []
+        self.ep = 350
+        Charakter.__init__(self, 500, 40, self.drop, "Wächter")
+
+
 class Krog(Charakter):
     def __init__(self):
         Charakter.__init__(self, 1, None, None, "Krog")
@@ -89,10 +96,12 @@ class Maronus(Charakter):
 class Spieler(Charakter):
     def __init__(self, name, hp, ad, ap):
         self.max_hp = hp
-        self.muenzen = 0
+        self.rubine = 0
         self.ep = 0
+        self.level = 0
         self.ap = ap
         Charakter.__init__(self, hp, ad, None, name)
+        self.levellist = [10, 50, 75, 100, 200, 300, 350, 400, 500, 600]
 
     def sterben(self):
         exit("Du bist gestorben")
@@ -100,5 +109,10 @@ class Spieler(Charakter):
     def ausruhen(self):
         self.hp = self.max_hp
 
+    def nextlevel(self):
+        if self.hp >= self.levellist[self.level]:
+            return True
+
     def levelup(self):
-        pass  # Todo: Level
+        if nextlevel():
+            pass # dostuff

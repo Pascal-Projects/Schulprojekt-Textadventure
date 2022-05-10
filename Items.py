@@ -8,7 +8,7 @@ class Item:
 class Schwert(Item):  # Fixme: Schwert nach Verlust/Verkauf
     def __init__(self, name, gewicht, schaden):
         self.schaden = schaden
-        self.wert = schaden * 3.5
+        self.wert = schaden * 3
         Item.__init__(self, name, gewicht, self.wert)
 
 

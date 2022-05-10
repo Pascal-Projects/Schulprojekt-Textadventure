@@ -34,29 +34,33 @@ class Haendler(Charakter.Charakter):
             for item in self.artikel:
                 if item.name == "Erfahrungstrank":
                     print(str(counter) + ". " + str(item.name) +
-                          " (Erfahrungspunkte: " + str(item.erfahrungspunkte) + ", Wert: " + str(item.wert) + " Münzen )")
+                          " (Erfahrungspunkte: " + str(item.erfahrungspunkte) + ", Wert: " + str(
+                        item.wert) + " Rubine )")
                 elif item.name == "Gesundheitstrank":
                     print(str(counter) + ". " + str(item.name) +
-                          " (Wiederherstellende Gesundheit: " + str(item.wiederhergestellte_gesundheit) + ", Wert: " + str(item.wert) + " Münzen )")
+                          " (Wiederherstellende Gesundheit: " + str(
+                        item.wiederhergestellte_gesundheit) + ", Wert: " + str(item.wert) + " Rubine )")
                 counter += 1
             item = input(
                 "Gib die Zahl des Items an, welches du kaufen willst: \n>>>")
             if item == "":
                 print("Bitte gib ein Item an.\n")
             else:
-                if int(item) > 0 and int(item) <= len(self.artikel):
-                    if spieler.muenzen >= self.artikel[int(item)-1].wert:
+                if 0 < int(item) <= len(self.artikel):
+                    if spieler.rubine >= self.artikel[int(item) - 1].wert:
                         if inventar.gewicht < inventar.max_gewicht:
-                            inventar.traenke.append(self.artikel[int(item)-1])
+                            inventar.traenke.append(
+                                self.artikel[int(item) - 1])
                             inventar.gewicht += self.artikel[int(
-                                item)-1].gewicht
-                            spieler.muenzen -= self.artikel[int(item)-1].wert
-                            del self.artikel[int(item)-1]
+                                item) - 1].gewicht
+                            spieler.rubine -= self.artikel[int(item) - 1].wert
+                            del self.artikel[int(item) - 1]
                         else:
                             print(
-                                "Dein Inventar ist voll. Benutze ein Item oder werfe es weg um ein neues in dein Inventar aufzunehmen.")
+                                "Dein Inventar ist voll. Benutze ein Item oder werfe es weg um ein neues in dein"
+                                "Inventar aufzunehmen.")
                     else:
-                        print("Du besitzt nicht genug Münzen.")
+                        print("Du besitzt nicht genug Rubine.")
                 else:
                     print("Bitte gib eine gültige Zahl an.")
         else:
@@ -70,21 +74,23 @@ class Haendler(Charakter.Charakter):
                 for item in inventar.traenke:
                     if item.name == "Erfahrungstrank":
                         print(str(counter) + ". " + str(item.name) +
-                              " (Erfahrungspunkte: " + str(item.erfahrungspunkte) + ", Wert: " + str(item.wert) + " Münzen )")
+                              " (Erfahrungspunkte: " + str(item.erfahrungspunkte) + ", Wert: " + str(
+                            item.wert) + " Rubine )")
                     elif item.name == "Gesundheitstrank":
                         print(str(counter) + ". " + str(item.name) +
-                              " (Wiederherstellende Gesundheit: " + str(item.wiederhergestellte_gesundheit) + ", Wert: " + str(item.wert) + " Münzen )")
+                              " (Wiederherstellende Gesundheit: " + str(
+                            item.wiederhergestellte_gesundheit) + ", Wert: " + str(item.wert) + " Rubine )")
                     counter += 1
                 item = input(
                     "Gib die Zahl des Items an, welches du verkaufen willst: \n>>>")
                 if item == "":
                     print("Bitte gib ein Item an.\n")
                 else:
-                    if int(item) > 0 and int(item) <= len(inventar.traenke):
-                        spieler.muenzen += inventar.traenke[int(item)-1].wert
+                    if 0 < int(item) <= len(inventar.traenke):
+                        spieler.rubine += inventar.traenke[int(item) - 1].wert
                         inventar.gewicht -= inventar.traenke[int(
-                            item)-1].gewicht
-                        del inventar.traenke[int(item)-1]
+                            item) - 1].gewicht
+                        del inventar.traenke[int(item) - 1]
             else:
                 print("Du hast keine Tränke im Inventar.")
         elif wahl == "Schwert":
@@ -92,18 +98,19 @@ class Haendler(Charakter.Charakter):
                 counter = 1
                 for schwert in inventar.schwerter:
                     print(str(counter) + ". " + str(schwert.name) + " (Schaden: " + str(schwert.schaden) +
-                          ", Wert: " + str(schwert.wert) + " Münzen)")
+                          ", Wert: " + str(schwert.wert) + " Rubine)")
                     counter += 1
                 item = input(
                     "Gib die Zahl des Items an, welches du verkaufen willst: \n>>>")
                 if item == "":
                     print("Bitte gib ein Item an.\n")
                 else:
-                    if int(item) > 0 and int(item) <= len(inventar.schwerter):
-                        spieler.muenzen += inventar.schwerter[int(item)-1].wert
+                    if 0 < int(item) <= len(inventar.schwerter):
+                        spieler.rubine += inventar.schwerter[int(
+                            item) - 1].wert
                         inventar.gewicht -= inventar.schwerter[int(
-                            item)-1].gewicht
-                        del inventar.schwerter[int(item)-1]
+                            item) - 1].gewicht
+                        del inventar.schwerter[int(item) - 1]
             else:
                 print("Du hast keine Schwerter im Inventar.")
 
@@ -126,7 +133,7 @@ class Feld:
                 print("Es ist kein Händler auf diesem Feld")
         else:
             print(str(self.haendler.name) +
-                  " hat Angst vor den Gegner auf diesem Feld und will dir deswegem nichts verkaufen.")
+                  " hat Angst vor den Gegner auf diesem Feld und will dir deswegen nichts verkaufen.")
 
     def verkaufen(self):
         if len(self.gegner) == 0:
@@ -139,7 +146,8 @@ class Feld:
                   " hat Angst vor den Gegner auf diesem Feld und will deswegen nichts von dir kaufen.")
 
     def print_umgebung(self):
-        if len(self.gegner) == 0 and self.haendler == None and len(self.loot) == 0 and len(self.krogs) == 0 and self.maronus == None:
+        if len(self.gegner) == 0 and self.haendler == None and len(self.loot) == 0 and len(
+                self.krogs) == 0 and self.maronus == None:
             print("Du siehst dich um, siehst aber nichts Interessantes.")
         else:
             print("Du siehst dich um und siehst:\n")
@@ -153,10 +161,12 @@ class Feld:
                 for item in self.loot:
                     if item.name == "Erfahrungstrank":
                         print("• " + str(item.name) +
-                              " (Erfahrungspunkte: " + str(item.erfahrungspunkte) + ", Wert: " + str(item.wert) + " Münzen )")
+                              " (Erfahrungspunkte: " + str(item.erfahrungspunkte) + ", Wert: " + str(
+                            item.wert) + " Rubine )")
                     elif item.name == "Gesundheitstrank":
                         print("• " + str(item.name) +
-                              " (Wiederherstellende Gesundheit: " + str(item.wiederhergestellte_gesundheit) + ", Wert: " + str(item.wert) + " Münzen )")
+                              " (Wiederherstellende Gesundheit: " + str(
+                            item.wiederhergestellte_gesundheit) + ", Wert: " + str(item.wert) + " Rubine )")
                     else:
                         print("• " + str(item.name) + " (Schaden: " + str(item.schaden) +
                               ", Wert: " + str(item.wert) + ")")
@@ -211,11 +221,11 @@ def generate_random():
 class Map:
     def __init__(self, breite, hoehe):
         self.karte = []
-        self.x = math.floor(breite/2)
-        self.y = math.floor(hoehe/2)
+        self.x = math.floor(breite / 2)
+        self.y = math.floor(hoehe / 2)
         for i in range(breite):
             felder = []
-            for i in range(hoehe):
+            for j in range(hoehe):
                 felder.append(generate_random())
             self.karte.append(felder)
 
@@ -236,7 +246,7 @@ class Map:
             print("Du siehst riesige Berge, an denen du nicht vorbeikommst")
         else:
             self.x = self.x + 1
-        rand = random.randint(1, 5)
+        rand = random.randint(1, 10)
         if rand == 1:
             self.karte[self.x][self.y].krogs.append(Charakter.Krog())
 
@@ -246,7 +256,7 @@ class Map:
                 "Du siehst Klippen, aber du kannst nicht sicher auf die andere Seite springen")
         else:
             self.x = self.x - 1
-        rand = random.randint(1, 5)
+        rand = random.randint(1, 10)
         if rand == 1:
             self.karte[self.x][self.y].krogs.append(Charakter.Krog())
 
@@ -255,7 +265,7 @@ class Map:
             print("Du siehst riesige Berge, an denen du nicht vorbeikommst")
         else:
             self.y = self.y + 1
-        rand = random.randint(1, 5)
+        rand = random.randint(1, 10)
         if rand == 1:
             self.karte[self.x][self.y].krogs.append(Charakter.Krog())
 
@@ -265,7 +275,7 @@ class Map:
                 "Du siehst Klippen, aber du kannst nicht sicher auf die andere Seite springen")
         else:
             self.y = self.y - 1
-        rand = random.randint(1, 5)
+        rand = random.randint(1, 10)
         if rand == 1:
             self.karte[self.x][self.y].krogs.append(Charakter.Krog())
 
@@ -306,7 +316,7 @@ def speichern(p, m):
         "gewicht": inventar.gewicht,
         "max_gewicht": inventar.max_gewicht,
         "krogsamen": inventar.krogsamen,
-        "muenzen": inventar.muenzen,
+        "rubine": inventar.rubine,
     }
     dateiname = input("Dateiname: \n>>>")
     datei = open(dateiname + ".pickle", "wb")
@@ -333,7 +343,7 @@ def laden(p, m):
     inventar.traenke = daten["traenke"]
     inventar.schwerter = daten["schwerter"]
     inventar.krogsamen = daten["krogsamen"]
-    inventar.muenzen = daten["muenzen"]
+    inventar.rubine = daten["rubine"]
     m.print_karte()
 
 
@@ -358,30 +368,31 @@ def aufheben(p, m):
             if item == "":
                 print("Bitte gib ein Item an.\n")
             else:
-                if int(item) > 0 and int(item) <= len(m.karte[m.x][m.y].loot):
-                    if m.karte[m.x][m.y].loot[int(item)-1].name == "Erfahrungstrank" or m.karte[m.x][m.y].loot[int(item)-1].name == "Gesundheitstrank":
+                if 0 < int(item) <= len(m.karte[m.x][m.y].loot):
+                    name = m.karte[m.x][m.y].loot[int(item) - 1].name
+                    if name == "Erfahrungstrank" or name == "Gesundheitstrank":
                         inventar.traenke.append(
-                            m.karte[m.x][m.y].loot[int(item)-1])
+                            m.karte[m.x][m.y].loot[int(item) - 1])
                         inventar.gewicht += m.karte[m.x][m.y].loot[int(
-                            item)-1].gewicht
-                        del m.karte[m.x][m.y].loot[int(item)-1]
+                            item) - 1].gewicht
+                        del m.karte[m.x][m.y].loot[int(item) - 1]
                     else:
-                        if m.karte[m.x][m.y].loot[int(item)-1].name == "Masterschwert":
-                            if spieler.hp >= 200:
+                        if m.karte[m.x][m.y].loot[int(item) - 1].name == "Master Sword":
+                            if spieler.hp >= 300:
                                 inventar.schwerter.append(
-                                    m.karte[m.x][m.y].loot[int(item)-1])
+                                    m.karte[m.x][m.y].loot[int(item) - 1])
                                 inventar.gewicht += m.karte[m.x][m.y].loot[int(
-                                    item)-1].gewicht
-                                del m.karte[m.x][m.y].loot[int(item)-1]
+                                    item) - 1].gewicht
+                                del m.karte[m.x][m.y].loot[int(item) - 1]
                             else:
                                 print(
                                     "Du bist noch nicht stark genug für dieses Schwert.")
                         else:
                             inventar.schwerter.append(
-                                m.karte[m.x][m.y].loot[int(item)-1])
+                                m.karte[m.x][m.y].loot[int(item) - 1])
                             inventar.gewicht += m.karte[m.x][m.y].loot[int(
-                                item)-1].gewicht
-                            del m.karte[m.x][m.y].loot[int(item)-1]
+                                item) - 1].gewicht
+                            del m.karte[m.x][m.y].loot[int(item) - 1]
                 else:
                     print("Bitte gib eine gültige Zahl an.")
         else:
@@ -392,7 +403,7 @@ def aufheben(p, m):
 
 def benutzen(p, m):
     wahl = input("Was willst du benutzen? (Trank/Schwert) \n>>>")
-    if wahl == "Trank":
+    if wahl.lower() == "trank":
         if len(inventar.traenke) > 0:
             print("Welches Item willst du einsetzen?")
             counter = 1
@@ -409,34 +420,34 @@ def benutzen(p, m):
             if item == "":
                 print("Bitte gib ein Item an.\n")
             else:
-                if int(item) > 0 and int(item) <= len(inventar.traenke):
-                    if inventar.traenke[int(item)-1].name == "Erfahrungstrank":
+                if 0 < int(item) <= len(inventar.traenke):
+                    if inventar.traenke[int(item) - 1].name == "Erfahrungstrank":
                         spieler.ep += inventar.traenke[int(item) -
                                                        1].erfahrungspunkte
                         inventar.gewicht -= inventar.traenke[int(
-                            item)-1].gewicht
-                        del inventar.traenke[int(item)-1]
-                    elif inventar.traenke[int(item)-1].name == "Gesundheitstrank":
-                        if spieler.hp + inventar.traenke[int(item)-1].wiederhergestellte_gesundheit <= spieler.max_hp:
+                            item) - 1].gewicht
+                        del inventar.traenke[int(item) - 1]
+                    elif inventar.traenke[int(item) - 1].name == "Gesundheitstrank":
+                        if spieler.hp + inventar.traenke[int(item) - 1].wiederhergestellte_gesundheit <= spieler.max_hp:
                             spieler.hp += inventar.traenke[int(item) -
                                                            1].wiederhergestellte_gesundheit
                             inventar.gewicht -= inventar.traenke[int(
-                                item)-1].gewicht
-                            del inventar.traenke[int(item)-1]
+                                item) - 1].gewicht
+                            del inventar.traenke[int(item) - 1]
                         else:
                             print("Es würden " + str((spieler.hp + inventar.traenke[int(
-                                item)-1].wiederhergestellte_gesundheit - spieler.max_hp)) + " hp verschwendet werden.")
+                                item) - 1].wiederhergestellte_gesundheit - spieler.max_hp)) + " hp verschwendet werden.")
                             x = input("Trotzdem fortfahren? (ja/nein)\n>>>")
                             if x.lower() == "ja":
                                 spieler.hp = spieler.max_hp
                                 inventar.gewicht -= inventar.traenke[int(
-                                    item)-1].gewicht
-                                del inventar.traenke[int(item)-1]
+                                    item) - 1].gewicht
+                                del inventar.traenke[int(item) - 1]
                 else:
                     print("Bitte gib eine gültige Zahl an.")
         else:
             print("Dein Inventar für Tränke ist leer.")
-    elif wahl == "Schwert":
+    elif wahl.lower() == "schwert":
         if len(inventar.schwerter) > 0:
             print("Welches Schwert willst du ausrüsten?")
             counter = 1
@@ -449,8 +460,8 @@ def benutzen(p, m):
             if item == "":
                 print("Bitte gib ein Item an.\n")
             else:
-                if int(item) > 0 and int(item) <= len(inventar.schwerter):
-                    spieler.ad = inventar.schwerter[int(item)-1].schaden
+                if 0 < int(item) <= len(inventar.schwerter):
+                    spieler.ad = inventar.schwerter[int(item) - 1].schaden
         else:
             print("Du hast kein Schwert in Inventar")
 
@@ -469,11 +480,11 @@ def wegwerfen(p, m):
             if item == "":
                 print("Bitte gib ein Item an.\n")
             else:
-                if int(item) > 0 and int(item) <= (inventar.traenke):
+                if 0 < int(item) <= len(inventar.traenke):
                     m.karte[m.x][m.y].loot.append(
-                        inventar.traenke[int(item)-1])
-                    inventar.gewicht -= inventar.traenke[int(item)-1].gewicht
-                    del inventar.traenke[int(item)-1]
+                        inventar.traenke[int(item) - 1])
+                    inventar.gewicht -= inventar.traenke[int(item) - 1].gewicht
+                    del inventar.traenke[int(item) - 1]
         elif wahl == "Schwert":
             print("Welches Schwert willst du wegwerfen?")
             counter = 1
@@ -485,12 +496,12 @@ def wegwerfen(p, m):
             if schwert == "":
                 print("Bitte gib ein Schwert an.\n")
             else:
-                if int(schwert) > 0 and int(schwert) <= (inventar.schwerter):
+                if 0 < int(schwert) <= len(inventar.schwerter):
                     m.karte[m.x][m.y].loot.append(
                         inventar.schwerter[int(schwert) - 1])
                     inventar.gewicht -= inventar.schwerter[int(
                         schwert) - 1].gewicht
-                    del inventar.schwerter[int(schwert)-1]
+                    del inventar.schwerter[int(schwert) - 1]
     else:
         print("Dein Inventar ist leer.")
 
@@ -499,7 +510,7 @@ def umschauen(p, m):
     m.print_karte()
 
 
-def game_verlassen(p, m):
+def verlassen(p, m):
     print("Du hast das Spiel verlassen")
     exit(0)
 
@@ -522,7 +533,7 @@ def stats(p, m):
     print("Inventarbenutzung: " +
           str((100 / inventar.max_gewicht) * inventar.gewicht) + "%")
     print("Krogsamen: " + str(inventar.krogsamen))
-    print("Münzen: " + str(p.muenzen) + "\n")
+    print("Rubine: " + str(p.rubine) + "\n")
 
 
 def print_inventar(p, m):
@@ -530,10 +541,11 @@ def print_inventar(p, m):
     for item in inventar.traenke:
         if item.name == "Erfahrungstrank":
             print(str(item.name) +
-                  " (Erfahrungspunkte: " + str(item.erfahrungspunkte) + ", Wert: " + str(item.wert) + " Münzen)")
+                  " (Erfahrungspunkte: " + str(item.erfahrungspunkte) + ", Wert: " + str(item.wert) + " Rubine)")
         elif item.name == "Gesundheitstrank":
             print(str(item.name) +
-                  " (Wiederherstellende Gesundheit: " + str(item.wiederhergestellte_gesundheit) + ", Wert: " + str(item.wert) + " Münzen)")
+                  " (Wiederherstellende Gesundheit: " + str(item.wiederhergestellte_gesundheit) + ", Wert: " + str(
+                item.wert) + " Rubine)")
     for schwert in inventar.schwerter:
         print(str(schwert.name) + " (Schaden: " + str(schwert.schaden) +
               ", Wert: " + str(schwert.wert) + ")")
@@ -549,8 +561,17 @@ def kaempfen(p, m):
             m.karte[m.x][m.y].loot.append(gegner[0].drop)
             gegner.remove(gegner[0])
         for i in gegner:
-            p.getroffen(math.ceil(i.ad / p.ap))  # Geschlagen werden
-            print(str(math.ceil(i.ad / p.ap)) + " hp verloren!")
+            rand = random.randint(1, math.floor(20 / schwierigkeitsgrad))
+            if rand == 1:
+                print("Angriff geblockt!")
+                if gegner[0].name == "Wächter":
+                    gegner[0].sterben()
+                    p.ep += gegner[0].ep
+                    m.karte[m.x][m.y].loot.append(gegner[0].drop)
+                    gegner.remove(gegner[0])
+            else:
+                p.getroffen(math.ceil(i.ad / p.ap))  # Geschlagen werden
+                print(str(math.ceil(i.ad / p.ap)) + " hp verloren!")
     if p.hp != p.max_hp:
         print("Du hast gewonnen, bist aber verwundet und hast noch " +
               str(p.hp) + " hp übrig")
@@ -560,7 +581,9 @@ def kaempfen(p, m):
 
 def krog(p, m):
     if len(m.karte[m.x][m.y].krogs) > 0:
-        print("Es befindet sich ein Krog auf diesem Feld. \nWenn du folgende Aufgabe richtig beantwortest erhältst du eine Belohnung.")
+        print(
+            "Es befindet sich ein Krog auf diesem Feld. \nWenn du folgende Aufgabe richtig beantwortest, erhältst du "
+            "eine Belohnung.")
         zahl1 = random.randint(1, 1000)
         zahl2 = random.randint(1, 1000)
         antwort = input("Wie viel ergibt " + str(zahl1) +
@@ -577,18 +600,33 @@ def krog(p, m):
 
 
 def maronus(p, m):
+    global vergroessern
     if m.karte[m.x][m.y].maronus != None:
         if inventar.krogsamen > 0:
             print("Du kannst mit Krogsamen dein Inventar vergrößern.")
-            if vergrößern <= 2:
-                wahl = input("Willst du das maximal-Gewicht deines Inventares erhöhen? \n>>>")
+            if vergroessern <= 2:
+                wahl = input(
+                    "Willst du das maximal-Gewicht deines Inventares erhöhen? \n>>>")
                 if wahl == "ja":
-                    pass # Todo: Inventarvergrößerung
+                    inventar.max_gewicht += 1
+                    inventar.krogsamen -= 1
+                    vergroessern += 1
+            else:
+                print("Du musst ab jetzt mehr Krogsamen bezahlen (" +
+                      str(vergroessern) + ")")
+                if inventar.krogsamen >= vergroessern:
+                    print("Du hast genug Krogsamen um dein Inventar zu vergrößern")
+                    wahl = input(
+                        "Willst du das maximal-Gewicht deines Inventares erhöhen? \n>>>")
+                    if wahl == "ja":
+                        inventar.max_gewicht += 1
+                        inventar.krogsamen -= vergroessern
+                        vergroessern += 1
         else:
             print(
                 "Du besitzt keine Krogsamen. Finde Krogs, um diese zu erhalten und bei Maronus einzulösen. \n")
     else:
-        print("Maronus bbefindet sich nicht hier.")
+        print("Maronus befindet sich nicht hier.")
 
 
 """ def ausruhen(p, m):
@@ -603,6 +641,12 @@ def verkaufen(p, m):
     m.verkaufen()
 
 
+def tunnel(p, m):
+    m.x = random.randint(0, hoehe - 1)
+    m.y = random.randint(0, breite - 1)
+    m.print_karte()
+
+
 Commands = {
     "hilfe": print_hilfe,
     "stats": stats,
@@ -611,7 +655,7 @@ Commands = {
     "benutzen": benutzen,
     "wegwerfen": wegwerfen,
     "umschauen": umschauen,
-    "verlassen": game_verlassen,
+    "verlassen": verlassen,
     "vorwärts": vorwaerts,
     "rechts": rechts,
     "links": links,
@@ -624,19 +668,43 @@ Commands = {
     # "ausruhen": ausruhen,
     "kaufen": kaufen,
     "verkaufen": verkaufen,
+    "tunnel graben": tunnel
 }
 
-schwierigkeitsgrad = 1
+hoehe = int(input("Gib die Höhe der Karte ein: "))
+breite = int(input("Gib die Breite der Karte ein: "))
+schwierigkeitsgrad = input(
+    "Gib den Schwierigkeitsgrad ein: (sehr einfach; einfach; normal; schwer; master modus): ")
+# TODO: Schwierigkeitsgrad
 
-name = input("Gib deinen Namen ein: ")  # Todo: Schwierigkeitsgrad
+if schwierigkeitsgrad == "normal":
+    schwierigkeitsgrad = 1
+elif schwierigkeitsgrad == "schwer":
+    schwierigkeitsgrad = 0.5
+elif schwierigkeitsgrad == "einfach":
+    schwierigkeitsgrad = 2
+elif schwierigkeitsgrad == "sehr einfach":
+    schwierigkeitsgrad = 3
+elif schwierigkeitsgrad == "master modus":
+    schwierigkeitsgrad = 0
+elif schwierigkeitsgrad == "":
+    schwierigkeitsgrad = 1
+else:
+    exit("Du hast keine Schwierigkeit angegeben")
+
+name = input("Gib deinen Namen ein: ")
+
+vergroessern = 0  # für Maronus
+bewegt = False
+
 if name != "":
     spieler = Charakter.Spieler(name, 200, 100, 1)
-    map = Map(5, 5)
+    map = Map(breite, hoehe)
+    map.karte[0][0].gegner.append(Charakter.Waechter())
     map.karte[0][0].maronus = Charakter.Maronus()
-    map.karte[len(map.karte[map.x])-1][len(map.karte[map.y]) -
-                                       1].loot.append(Items.Schwert("Master Sword", 2, 160))
+    map.karte[len(map.karte[map.x]) - 1][len(map.karte[map.y]) -
+                                         1].loot.append(Items.Schwert("Master Sword", 2, 160))
     inventar = Inventar.Inventar(10)
-    vergrößern = 0  # für Maronus
     print("(Schreibe 'hilfe' um alle Commands anzuzeigen)\n")
     map.print_karte()
     while True:
@@ -645,3 +713,8 @@ if name != "":
             Commands[command](spieler, map)
         else:
             print("Du drehst dich im Kreis und weißt nicht was zu tun.")
+        if vergroessern > 2 and not bewegt:
+            del map.karte[0][0].maronus[0]
+            map.karte[random.randint(
+                0, breite - 1)][random.randint(0, hoehe - 1)].maronus.append(Charakter.Maronus())
+            bewegt = True
