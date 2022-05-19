@@ -302,15 +302,16 @@ def rueckwaerts(p, m):
 
 def speichern(p, m):
     daten = {
-        "karte": map.karte,
-        "x": map.x,
-        "y": map.y,
-        "name": spieler.name,
-        "ad": spieler.ad,
-        "hp": spieler.hp,
-        "max_hp": spieler.max_hp,
-        "ep": spieler.ep,
-        "ap": spieler.ap,
+        "karte": m.karte,
+        "x": m.x,
+        "y": m.y,
+        "name": p.name,
+        "ad": p.ad,
+        "hp": p.hp,
+        "max_hp": p.max_hp,
+        "ep": p.ep,
+        "level": p.level,
+        "ap": p.ap,
         "traenke": inventar.traenke,
         "schwerter": inventar.schwerter,
         "gewicht": inventar.gewicht,
@@ -329,15 +330,16 @@ def laden(p, m):
     datei = open(dateiname + ".pickle", "rb")
     daten = pickle.load(datei)
     datei.close()
-    map.karte = daten["karte"]
-    map.x = daten["x"]
-    map.y = daten["y"]
-    spieler.name = daten["name"]
-    spieler.ad = daten["ad"]
-    spieler.hp = daten["hp"]
-    spieler.max_hp = daten["max_hp"]
-    spieler.ep = daten["ep"]
-    spieler.ap = daten["ap"]
+    m.karte = daten["karte"]
+    m.x = daten["x"]
+    m.y = daten["y"]
+    p.name = daten["name"]
+    p.ad = daten["ad"]
+    p.hp = daten["hp"]
+    p.max_hp = daten["max_hp"]
+    p.ep = daten["ep"]
+    p.level = daten["level"]
+    p.ap = daten["ap"]
     inventar.gewicht = daten["gewicht"]
     inventar.max_gewicht = daten["max_gewicht"]
     inventar.traenke = daten["traenke"]
@@ -526,7 +528,8 @@ def stats(p, m):
     print("Gesundheit: " + str(p.hp) + "/" + str(p.max_hp))
     print("Angriffsschaden: " + str(p.ad))
     print("Verteidigungpunkte: " + str(p.ap))
-    print("Erfahrungspunkte: " + str(p.ep) + "\n")
+    print("Erfahrungspunkte: " + str(p.ep))
+    print("Level: " + str(p.level) + "\n")
     print("Position: ")
     print("x: " + str(m.x))
     print("y: " + str(m.y) + "\n")
@@ -646,11 +649,15 @@ def tunnel(p, m):
     m.y = random.randint(0, breite - 1)
     m.print_karte()
 
+def levelup(p, m):
+    p.levelup()
+
 
 Commands = {
     "hilfe": print_hilfe,
     "stats": stats,
     "inventar": print_inventar,
+    "levelup": levelup,
     "aufheben": aufheben,
     "benutzen": benutzen,
     "wegwerfen": wegwerfen,

@@ -99,9 +99,11 @@ class Spieler(Charakter):
         self.rubine = 0
         self.ep = 0
         self.level = 0
+        self.start_ad = ad
+        self.ad = ad
         self.ap = ap
-        Charakter.__init__(self, hp, ad, None, name)
-        self.levellist = [10, 50, 75, 100, 200, 300, 350, 400, 500, 600]
+        Charakter.__init__(self, hp, self.ad, None, name)
+        self.levellist = [10, 25, 50, 75, 100, 200, 300, 400, 500, 600]
 
     def sterben(self):
         exit("Du bist gestorben")
@@ -110,9 +112,17 @@ class Spieler(Charakter):
         self.hp = self.max_hp
 
     def nextlevel(self):
-        if self.hp >= self.levellist[self.level]:
+        if self.ep >= self.levellist[self.level]:
             return True
 
     def levelup(self):
-        if nextlevel():
-            pass # dostuff
+        if self.nextlevel():
+            self.ep -= self.levellist[self.level]
+            self.level += 1
+            print("Level up erfolgreich")
+            self.max_hp += 15
+            self.ad += 5
+            self.start_ad += 5
+            print("Dein neues Level: " + str(self.level))
+        else:
+            print("Du besitzt nicht genug Ehrfahrungspunkte")
